@@ -17,7 +17,4 @@ router.delete('/category/:id/', deleteCategory);
 
 
 
-
-
-
 module.exports = router;

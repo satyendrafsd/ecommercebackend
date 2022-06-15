@@ -20,6 +20,20 @@ const db = {};
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-db.category = require('./Category')(sequelize, Sequelize);
+db.category = require('./Category')(sequelize, Sequelize.DataTypes);
+db.product = require('./Product')(sequelize, Sequelize.DataTypes);
+db.user = require('./User')(sequelize, Sequelize.DataTypes);
+db.role = require('./Role')(sequelize, Sequelize.DataTypes);
+
+db.role.belongsToMany(db.user, {
+    through:"user_role",
+    foreignKey: "roleId",
+});
+
+db.user.belongsToMany(db.role, {
+    through: "user_role",
+    foreignKey: "userId",
+})
+sequelize.sync();
 
 module.exports = db;
